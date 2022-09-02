@@ -12,6 +12,7 @@ import LoginForm from './LoginForm';
 import ReactProxy from './ReactProxy';
 import APIGetJson from './APIGetJson';
 import APIPostJson from './APIPostJson';
+import SwList from './SwToolsManage/SwList';
 
 class App extends Component {
   render () {
@@ -23,6 +24,7 @@ class App extends Component {
           <Route exact path='/ReactProxy' element = {<ReactProxy/>} />
           <Route exact path='/APIGetJson' element = {<APIGetJson/>} />
           <Route exact path='/APIPostJson' element = {<APIPostJson/>} />
+          <Route exact path='/SwList' element = {<SwList/>} />
         </Routes>
         <Footer/>
       </div>
