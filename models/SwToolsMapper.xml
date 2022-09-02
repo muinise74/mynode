@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SwToolsMapper">  
+    <select id="selectSwToolsList">
+        select * from react.react_swtool order by update_date desc;
+    </select>
+</mapper>

@@ -4,10 +4,12 @@ let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
 
+// Router
 let indexRouter = require('./routes/index');
 let usersRouter = require('./routes/users');
 let usersRouter02 = require('./routes/users02');
 let usersRouter03 = require('./routes/users03');
+let swtoolRouter = require('./routes/SwtoolRoute');
 
 let app = express();
 
@@ -25,6 +27,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/users02', usersRouter02);
 app.use('/users03', usersRouter03);
+app.use('/api/Swtool',swtoolRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
