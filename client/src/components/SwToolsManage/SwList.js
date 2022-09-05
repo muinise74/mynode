@@ -39,17 +39,12 @@ class SoftwareList extends Component {
         
         for(let i=0; i<SwToolList.json.length; i++){
             var data = SwToolList.json[i]
-            var date = data.reg_date
-            var year = date.substr(0,4)
-            var month = date.substr(5,2)
-            var day = date.substr(8,2)
-            var reg_date = year +'.'+month+'.'+day
 
             result.push(
                 <tr key = "{data}" className="hidden_type">
                     <td>{data.swt_toolname}</td>
                     <td>{data.swt_function}</td>
-                    <td>{reg_date}</td>
+                    <td>{data.reg_date.substr(0,10)}</td>
                     <td>
                         <Link to={'/AdminSoftwareView/'+data.swt_code} 
                         className="bt_c1 bt_c2 w50_b">수정</Link>
@@ -67,17 +62,11 @@ class SoftwareList extends Component {
         
         for(let i=0; i<SwToolList.json.length; i++){
             var data = SwToolList.json[i]
-            var date = data.reg_date
-            var year = date.substr(0,4)
-            var month = date.substr(5,2)
-            var day = date.substr(8,2)
-            var reg_date = year +'.'+month+'.'+day
-
             result.push(
                 <tr key = "{data}" className="hidden_type">
                     <td>{data.swt_toolname}</td>
                     <td>{data.swt_function}</td>
-                    <td>{reg_date}</td>
+                    <td>{data.reg_date.substr(0,10)}</td>
                     <td>
                         <Link to={'/AdminSoftwareView/'+data.swt_code} 
                         className="bt_c1 bt_c2 w50_b">수정</Link>
@@ -96,7 +85,7 @@ class SoftwareList extends Component {
                     <div className="li_top">
                         <h2 className="s_tit1">Software Tools 목록</h2>
                         <div className="li_top_sch af">
-                        <Link to={'/AdminSoftwareView/register'} className="sch_bt2 wi_au">Tool 등록</Link>
+                        <Link to={'/SwView'} className="sch_bt2 wi_au">Tool 등록</Link>
                         </div>
                     </div>
 

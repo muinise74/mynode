@@ -23,6 +23,20 @@ router.post('/',(req,res,next) => {
         } catch (error) {
             console.log('Module > dbConnectError : ' + error);
         }
+    } else if (type == 'save') {
+        // SwTool 관리자 저장
+        try {
+            var dbconnectModule = require('./dbconnect_Module');
+
+            req.body.mapper = 'SwToolsMapper';
+            req.body.crud = 'insert';
+            req.body.mapper_id = 'insertSwTools';
+            
+            router.use('/',dbconnectModule);
+            next('route');
+        } catch (error) {
+            console.log("Module > dbConnectError : "+error);
+        }
     }
 });
 
