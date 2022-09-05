@@ -7,8 +7,8 @@ class SoftwareList extends Component {
         super(props);
 
         this.state = {
-            responseSwtoolList: '',
-            append_SwtoolList: '',
+            responseSwtoolList: null,
+            append_SwtoolList: null,
         }
     }
 
@@ -20,34 +20,33 @@ class SoftwareList extends Component {
         axios.post('/api/Swtool?type=list', {
         })
         .then( response => {
-            console.log(response);
             try {
-                this.setState({ responseSwtoolList: response });
-                this.setState({ append_SwtoolList: this.SwToolListAppend() });
+                // 이거는 안됨...
+                // this.setState({ responseSwtoolList: response });
+                // this.setState({ append_SwtoolList: this.SwToolListAppend() });
+                // 이거는 됨
+                this.setState({ append_SwtoolList: this.SwToolListAppend2(response) });
             } catch (error) {
                 alert('작업중 오류가 발생하였습니다.');
             }
-            console.log(this.state.responseSwtoolList);//이거 왜 비었지???
-            console.log(this.state.append_SwtoolList);
         })
         .catch( error => {alert('작업중 오류가 발생하였습니다.');return false;} );
     }
-
+    // 이거는 안됨...
     SwToolListAppend = () => {
         let result = []
         var SwToolList = this.state.responseSwtoolList.data
         
         for(let i=0; i<SwToolList.json.length; i++){
             var data = SwToolList.json[i]
-            console.log(data);
             var date = data.reg_date
             var year = date.substr(0,4)
-            var month = date.substr(4,2)
-            var day = date.substr(6,2)
+            var month = date.substr(5,2)
+            var day = date.substr(8,2)
             var reg_date = year +'.'+month+'.'+day
 
             result.push(
-                <tr className="hidden_type">
+                <tr key = "{data}" className="hidden_type">
                     <td>{data.swt_toolname}</td>
                     <td>{data.swt_function}</td>
                     <td>{reg_date}</td>
@@ -59,7 +58,34 @@ class SoftwareList extends Component {
                 </tr>
             )
         }
-        console.log(result)
+        return result
+    }
+    // 이거는 됨
+    SwToolListAppend2 = (res) => {
+        let result = []
+        var SwToolList = res.data
+        
+        for(let i=0; i<SwToolList.json.length; i++){
+            var data = SwToolList.json[i]
+            var date = data.reg_date
+            var year = date.substr(0,4)
+            var month = date.substr(5,2)
+            var day = date.substr(8,2)
+            var reg_date = year +'.'+month+'.'+day
+
+            result.push(
+                <tr key = "{data}" className="hidden_type">
+                    <td>{data.swt_toolname}</td>
+                    <td>{data.swt_function}</td>
+                    <td>{reg_date}</td>
+                    <td>
+                        <Link to={'/AdminSoftwareView/'+data.swt_code} 
+                        className="bt_c1 bt_c2 w50_b">수정</Link>
+                        <a href="#n" className="bt_c1 w50_b" >삭제</a>
+                    </td>
+                </tr>
+            )
+        }
         return result
     }
 
@@ -86,7 +112,9 @@ class SoftwareList extends Component {
                             </thead>
                         </table>	
                         <table className="table_ty2 ad_tlist">
-                            
+                            <tbody>
+                                {this.state.append_SwtoolList}
+                            </tbody>
                         </table>
                     </div>
                 </article>
