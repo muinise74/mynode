@@ -4,6 +4,11 @@
     <select id="selectSwToolsList">
         select * from react.react_swtool order by update_date desc;
     </select>
+
+    <select id="selectSwToolsDetail">
+        select * from react.react_swtool where swt_code = #{is_Swtcode} order by update_date desc;
+    </select>
+    
     <!-- id="ss" << 띄어쓰지 말것 -->
     <insert id="insertSwTools">
         insert into react.react_swtool

@@ -46,7 +46,7 @@ class SoftwareList extends Component {
                     <td>{data.swt_function}</td>
                     <td>{data.reg_date.substr(0,10)}</td>
                     <td>
-                        <Link to={'/AdminSoftwareView/'+data.swt_code} 
+                        <Link to={'/SwDetailView/'+data.swt_code} 
                         className="bt_c1 bt_c2 w50_b">수정</Link>
                         <a href="#n" className="bt_c1 w50_b" >삭제</a>
                     </td>
@@ -68,7 +68,7 @@ class SoftwareList extends Component {
                     <td>{data.swt_function}</td>
                     <td>{data.reg_date.substr(0,10)}</td>
                     <td>
-                        <Link to={'/AdminSoftwareView/'+data.swt_code} 
+                        <Link to={'/SwDetailView/'+data.swt_code} 
                         className="bt_c1 bt_c2 w50_b">수정</Link>
                         <a href="#n" className="bt_c1 w50_b" >삭제</a>
                     </td>

@@ -14,6 +14,7 @@ import APIGetJson from './APIGetJson';
 import APIPostJson from './APIPostJson';
 import SwList from './SwToolsManage/SwList';
 import SwView from './SwToolsManage/SwView';
+import SwDetailView from './SwToolsManage/SwDetailView';
 
 class App extends Component {
   render () {
@@ -27,6 +28,7 @@ class App extends Component {
           <Route exact path='/APIPostJson' element = {<APIPostJson/>} />
           <Route exact path='/SwList' element = {<SwList/>} />
           <Route exact path='/SwView' element = {<SwView/>} />
+          <Route path='/SwDetailView/:swtcode' element = {<SwDetailView/>} />
         </Routes>
         <Footer/>
       </div>

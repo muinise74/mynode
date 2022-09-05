@@ -37,6 +37,19 @@ router.post('/',(req,res,next) => {
         } catch (error) {
             console.log("Module > dbConnectError : "+error);
         }
+    } else if (type == 'detail') {
+        try {
+            var dbconnectModule = require('./dbconnect_Module');
+
+            req.body.mapper = 'SwToolsMapper';
+            req.body.crud = 'select';
+            req.body.mapper_id = 'selectSwToolsDetail';
+            
+            router.use('/',dbconnectModule);
+            next('route');
+        } catch (error) {
+            console.log("Module > dbConnectError : "+error);
+        }
     }
 });
 
