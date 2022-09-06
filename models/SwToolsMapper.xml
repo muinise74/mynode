@@ -20,12 +20,12 @@
             , swt_demo_site
             , swt_github_url
             <if test="is_LabelImg != null && is_LabelImg != ''">
-            , swt_imagepath
+            , swt_imgpath
             </if>
             <if test="is_MainImg != null && is_MainImg != ''">
             , swt_big_imgpath
             </if>
-            <if test="is_MenualName != null && is_MenualName != ''">
+            <if test="is_ManualName != null && is_ManualName != ''">
             , swt_manual_path
             </if>
             , reg_date
@@ -45,8 +45,8 @@
         <if test="is_MainImg != null && is_MainImg != ''">
             , #{is_MainImg}
         </if>
-        <if test="is_MenualName != null && is_MenualName != ''">
-            , #{is_MenualName}
+        <if test="is_ManualName != null && is_ManualName != ''">
+            , #{is_ManualName}
         </if>
         , now()
         , #{is_Email}
@@ -63,13 +63,13 @@
             , swt_demo_site = #{is_Swt_demo_site}
             , swt_github_url = #{is_Giturl}
             <if test="is_LabelImg != null && is_LabelImg != ''">
-            , swt_imagepath = #{is_LabelImg}
+            , swt_imgpath = #{is_LabelImg}
             </if>
             <if test="is_MainImg != null && is_MainImg != ''">
             , swt_big_imgpath = #{is_MainImg}
             </if>
-            <if test="is_MenualName != null && is_MenualName != ''">
-            , swt_manual_path = #{is_MenualName}
+            <if test="is_ManualName != null && is_ManualName != ''">
+            , swt_manual_path = #{is_ManualName}
             </if>
             , update_date = DATE_FORMAT(now(), '%Y%m%d%H%i%s')
             , update_user = #{is_Email}

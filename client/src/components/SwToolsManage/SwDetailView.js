@@ -16,7 +16,8 @@ const GetSwtCode = () => {
 class SwDetailView extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+        }
     }
 
     componentDidMount () {
@@ -126,7 +127,7 @@ class SwDetailView extends Component {
             showConfirmButton: showConfirmButton,
             timer: 1000
         })
-    }
+    } 
 
     render () {
         return (
@@ -187,7 +188,7 @@ class SwDetailView extends Component {
                                                     <label htmlFor="uploadBtn1" className="btn_file">파일선택</label>
                                                     <input type="text" id="manualfile" className="fileName fileName1" readOnly="readOnly" placeholder="선택된 파일 없음"/>
                                                     <input type="file" id="uploadBtn1" className="uploadBtn uploadBtn1" onChange={e => this.handleFileInput('manual',e)}/>	
-                                                    <div id="upload_menual">
+                                                    <div id="upload_manual">
                                                     </div>
                                                 </td>
                                             </tr>

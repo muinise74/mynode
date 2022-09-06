@@ -10,6 +10,7 @@ let usersRouter = require('./routes/users');
 let usersRouter02 = require('./routes/users02');
 let usersRouter03 = require('./routes/users03');
 let swtoolRouter = require('./routes/SwtoolRoute');
+let fileUploadRouter = require('./routes/UploadRoute')
 
 let app = express();
 
@@ -28,6 +29,9 @@ app.use('/users', usersRouter);
 app.use('/users02', usersRouter02);
 app.use('/users03', usersRouter03);
 app.use('/api/Swtool',swtoolRouter);
+app.use('/api/upload',fileUploadRouter);
+
+app.use(express.static("./uploads"));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

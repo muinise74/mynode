@@ -16,3 +16,9 @@
     6th : 삽입 기능 추가(insert)
     7th : 수정 기능 추가(update)
     8th : 삭제 기능 추가(delete)
+    9th : multer 적용, 파일 업로드 기능 추가
+      >> fs 관련 directory 생성, 삭제
+
+  ### - 주의
+    1. react에서 Component를 만들 때, Component 명을 Pascal Case로 작성하기
+    2. export 잊지 말기 

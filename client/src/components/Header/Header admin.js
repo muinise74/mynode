@@ -31,7 +31,7 @@ class Header extends Component {
                             <Link to={'/AdminResearchProject'}>Research Projects 관리</Link>
                         </li>
                         <li className="menulist">
-                            <Link to={'/AdminSoftwareList'}>Software Tools 관리</Link>
+                            <Link to={'/SwList'}>Software Tools 관리</Link>
                         </li>
                         <li className="menulist">
                             <Link to={'/AdminDataSourceList'}>Data Sources 관리</Link>
