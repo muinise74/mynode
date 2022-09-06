@@ -25,6 +25,7 @@ class SwDetailView extends Component {
 
     callSwToolInfoApi = async () => {
         let swtcode = $('.GetSwtCode > p').text();
+        $('#is_Swtcode').val(swtcode);
         console.log(swtcode);
         axios.post('/api/Swtool?type=detail', {
             is_Swtcode: swtcode,
@@ -45,7 +46,7 @@ class SwDetailView extends Component {
     }
 
     submitClick = async (type, e) => {
-
+        console.log(type);
         this.Swt_toolname_checker = $('#is_Swt_toolname').val();
         this.Swt_demo_site_checker = $('#is_Swt_demo_site').val();
         this.Giturl_checker = $('#is_Giturl').val();
@@ -93,6 +94,7 @@ class SwDetailView extends Component {
         if(this.fnValidate()){
             var jsonstr = $("form[name='frm']").serialize();
             jsonstr = decodeURIComponent(jsonstr);
+            console.log(jsonstr);
             var Json_form = JSON.stringify(jsonstr).replace(/\"/gi,'')
             Json_form = "{\"" +Json_form.replace(/\&/g,'\",\"').replace(/=/gi,'\":"')+"\"}";
         
@@ -106,13 +108,7 @@ class SwDetailView extends Component {
                 });
                 const body = await response.text();
                 if(body == "succ"){
-                    if(type == 'save'){
-                        this.sweetalertSucc('Software Tools 등록이 완료되었습니다.', false)
-                    }
-                    setTimeout(function() {
-                        this.props.history.push('/SoftwareList');
-                        }.bind(this),1500
-                    );
+                    this.sweetalertSucc('Software Tools 수정이 완료되었습니다.', false)
                 }else{
                     alert('작업중 오류가 발생하였습니다.')
                 }  
@@ -230,7 +226,7 @@ class SwDetailView extends Component {
                                         </tbody>
                                     </table>
                                     <div className="btn_confirm mt20" style={{"marginBottom": "44px"}}>
-                                        <Link to={'/SoftwareList'} className="bt_ty bt_ty1 cancel_ty1">취소</Link>
+                                        <Link to={'/SwList'} className="bt_ty bt_ty1 cancel_ty1">취소</Link>
                                         <a href="javascript:" className="bt_ty bt_ty2 submit_ty1 modifyclass" 
                                         onClick={(e) => this.submitClick('modify', e)}>수정</a>
                                     </div>
