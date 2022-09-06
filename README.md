@@ -1,6 +1,10 @@
 # mynode
-  ### - react express framework
-  
+  ### - env
+    front : create-react-app
+    back : express
+    db : aws > mysql
+    db 연동 : mybatis
+    
   ### - commit history
     1st : project 생성, mybatis, mySql connect
     2nd : 전체 조회 추가, 조회 안됨(select)
