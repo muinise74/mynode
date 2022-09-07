@@ -39,6 +39,24 @@ class SwDetailView extends Component {
                 $('#is_Giturl').val(data.swt_github_url)
                 $('#is_Comments').val(data.swt_comments)
                 $('#is_Swt_function').val(data.swt_function)
+
+                var manualName = data.swt_manual_path.replace('/swmanual/','')
+                var fileName = data.swt_big_imgpath.replace('/image/','')
+                var fileName2 = data.swt_imgpath.replace('/image/','')
+
+                $('#upload_img').prepend('<img id="uploadimg" src="'+data.swt_big_imgpath+'"/>')
+                $('#upload_img2').prepend('<img id="uploadimg2" src="'+data.swt_imgpath+'"/>')
+
+                $('#imagefile').val(fileName)
+                $('#imagefile2').val(fileName2)
+                $('#manualfile').val(manualName)
+
+                if($('#uploadimg').attr('src').indexOf("null") > -1){
+                    $('#uploadimg').hide()
+                }
+                if($('#uploadimg2').attr('src').indexOf("null") > -1){
+                    $('#uploadimg2').hide()
+                }
             } catch (error) {
                 alert('작업중 오류가 발생하였습니다.')
             }
@@ -128,6 +146,65 @@ class SwDetailView extends Component {
             timer: 1000
         })
     } 
+
+    handleFileInput(type, e) {
+        if (type == 'file') {
+            $('#imagefile').val(e.target.files[0].name)
+        } else if (type == 'file2') {
+            $('#imagefile2').val(e.target.files[0].name)
+        } else if (type == 'manual') {
+            $('#manualfile').val(e.target.files[0].name)
+        }
+        this.setState({
+            selectedFile : e.target.files[0]
+        })
+        setTimeout(function() {
+            if (type == 'manual') {
+                this.handlePostManual();
+            } else {
+                this.handlePostImage(type);
+            }
+        }.bind(this),1);
+    }
+
+    handlePostManual() {
+        const formData = new FormData();
+        formData.append('file', this.state.selectedFile);
+        return axios.post("/api/upload?type=uploads/swmanual/",formData)
+        .then(res => {
+            $('is_ManualName').remove()
+            $('#upload_manual').prepend('<input id="is_ManualName" type = "hidden" name = "is_ManualName" value = "/swmanual/'+res.data.filename+'"/>')
+        }).catch(error => {
+            alert('작업 중 에러가 발생했습니다.',error,'error','닫기');
+        })
+    }
+
+    handlePostImage(type) {
+        const formData = new FormData();
+        formData.append('file', this.state.selectedFile);
+        return axios.post("/api/upload?type=uploads/image/",formData)
+        .then(res => {
+            console.log(type);
+            console.log(res);
+            if(type =='file'){
+                $('#is_MainImg').remove()
+                $('#uploadimg').remove()
+                $('#upload_img').prepend('<img id="uploadimg" src="/image/'
+                +res.data.filename+'"/>')
+                $('#upload_img').prepend('<input id="is_MainImg" type="hidden"'
+                +'name="is_MainImg" value="/image/'+res.data.filename+'"/>')
+            }else if(type =='file2'){
+                $('#is_LabelImg').remove()
+                $('#uploadimg2').remove()
+                $('#upload_img2').prepend('<img id="uploadimg2" src="/image/'
+                +res.data.filename+'"/>')
+                $('#upload_img2').prepend('<input id="is_LabelImg" type="hidden"'
+                +'name="is_LabelImg" value="/image/'+res.data.filename+'"/>')
+            }
+        }).catch(error => {
+            alert('작업 중 에러가 발생했습니다.',error,'error','닫기');
+        })
+    }   
 
     render () {
         return (
