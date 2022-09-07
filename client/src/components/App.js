@@ -15,6 +15,7 @@ import APIPostJson from './APIPostJson';
 import SwList from './SwToolsManage/SwList';
 import SwView from './SwToolsManage/SwView';
 import SwDetailView from './SwToolsManage/SwDetailView';
+import Register from './User/Register';
 
 class App extends Component {
   render () {
@@ -29,6 +30,7 @@ class App extends Component {
           <Route exact path='/SwList' element = {<SwList/>} />
           <Route exact path='/SwView' element = {<SwView/>} />
           <Route path='/SwDetailView/:swtcode' element = {<SwDetailView/>} />
+          <Route exact path='/Register' element = {<Register/>} />
         </Routes>
         <Footer/>
       </div>

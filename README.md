@@ -20,6 +20,11 @@
       >> fs 관련 directory 생성, 삭제
     10th : 수정 시 파일도 수정할 수 있도록 기능 적용
       >> 파일을 수정 시 dir 내의 변경 전 파일을 삭제 필요
+    11th : User 테이블 생성, 회원가입 기능 적용(유효성 검사 적용 X)
+      >> react-router-dom v6 history 대신에 useNavigate 사용
+      >> hook은 class형 Component 내에서 사용할 수 없음
+      >> 함수형 Component 내에서 사용해야 함
+      >> location.href 와 useNavigate의 차이는??
 
   ### - 주의
     1. react에서 Component를 만들 때, Component 명을 Pascal Case로 작성하기

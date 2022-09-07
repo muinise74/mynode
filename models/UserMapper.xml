@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserMapper">  
+    <insert id="insertUser"> 
+        INSERT INTO react.react_user
+        (
+            username
+            , userorg
+            , useremail
+            , userpassword
+            , usermajor
+            , userphone
+            , userflag
+            , reg_date
+            , reg_user
+            , update_date
+            , update_user
+        )
+        VALUES (
+            #{is_Username}
+            , #{is_Organization}
+            , CONCAT(#{is_Useremail1}, '@', #{is_Useremail2})
+            , #{is_Password}
+            , #{is_Usermajor}
+            , CONCAT(#{is_Userphone1}, '-', #{is_Userphone2},'-', #{is_Userphone3})
+            , 'Y'
+            , now()
+            , CONCAT(#{is_Useremail1}, '@', #{is_Useremail2})
+            , now()
+            , CONCAT(#{is_Useremail1}, '@', #{is_Useremail2})
+        )
+    </insert>
+</mapper>

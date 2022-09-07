@@ -21,7 +21,7 @@ class LoginForm extends Component {
                         <input type="password" placeholder="비밀번호" />
                     </div>
                     <ul className="af">
-                        <li><Link to={'/register_check'}>회원가입</Link></li>
+                        <li><Link to={'/Register'}>회원가입</Link></li>
                         <li className="pwr_b"><a href="#n">비밀번호 재설정</a></li>
                     </ul>
                     <button className="s_bt" type="submit">로그인</button>
