@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {useNavigate} from 'react-router-dom';
-import axios from "axios";
-import Swal from 'sweetalert2'
+import axios from 'axios';
+import Swal from 'sweetalert2';
 import $ from 'jquery';
 
 const SubmitButton = () => {
@@ -9,7 +9,127 @@ const SubmitButton = () => {
 
     async function submitClick(type, e) {
         console.log(type);
-        fnSignInsert(type, e);
+        if (fnValidate()) {
+            fnSignInsert(type, e);
+        }
+    }
+
+    function fnValidate() {
+
+        let email_val_checker = $('#email_val').val();
+        let email2_val_checker = $('#email2_val').val();
+        let pwd_val_checker = $('#pwd_val').val();
+        let pwd_cnf_val_checker = $('#pwd_cnf_val').val();
+        let name_val_checker = $('#name_val').val();
+        let org_val_checker = $('#org_val').val();
+        let major_val_checker = $('#major_val').val();
+        let phone1_val_checker = $('#phone1_val').val();
+        let phone2_val_checker = $('#phone2_val').val();
+        let phone3_val_checker = $('#phone3_val').val();
+
+        var pattern1 = /[0-9]/;
+        var pattern2 = /[a-zA-Z]/;
+        var pattern3 = /[~!@#$%^&*()_+|<>?:{}]/;
+
+        if(email_val_checker === '') {
+            $('#email_val').addClass('border_validate_err');
+            sweetalert('이메일 주소를 다시 확인해주세요.', '', 'info', '닫기')
+            return false;
+        }
+        if(email_val_checker.search(/\s/) !== -1) {
+            $('#email_val').addClass('border_validate_err');
+            sweetalert('이메일 공백을 제거해 주세요.', '', 'info', '닫기')
+            return false;
+        }
+        $('#email_val').removeClass('border_validate_err');
+
+        if(email2_val_checker ==='') {
+            $('#email2_val').addClass('border_validate_err');
+            sweetalert('이메일 주소를 다시 확인해주세요.', '', 'info', '닫기')
+            return false;
+        }
+        $('#email2_val').removeClass('border_validate_err');
+
+        if(pwd_val_checker ==='') {
+            $('#pwd_val').addClass('border_validate_err');
+            sweetalert('비밀번호를 입력해주세요.', '', 'info', '닫기')
+            return false;
+        }
+        if(pwd_val_checker !=='') {
+            var str = pwd_val_checker;
+            if(str.search(/\s/) !== -1) {
+                $('#pwd_val').addClass('border_validate_err');
+                sweetalert('비밀번호 공백을 제거해 주세요.', '', 'info', '닫기')
+                return false;
+            } 
+            if(!pattern1.test(str) || !pattern2.test(str) || !pattern3.test(str)
+            || str.length < 8 || str.length > 16) {
+                $('#pwd_val').addClass('border_validate_err');
+                sweetalert('8~16자 영문 대 소문자\n숫자, 특수문자를 사용하세요.', '', 'info', '닫기')
+                return false; 
+            } 
+        }
+        $('#pwd_val').removeClass('border_validate_err');
+
+        if(pwd_cnf_val_checker ==='') {
+            $('#pwd_cnf_val').addClass('border_validate_err');
+            sweetalert('비밀번호 확인을 입력해주세요.', '', 'info', '닫기')
+            return false;
+        }
+        if(pwd_val_checker !== pwd_cnf_val_checker) {
+            $('#pwd_val').addClass('border_validate_err');
+            $('#pwd_cnf_val').addClass('border_validate_err');
+            sweetalert('비밀번호가 일치하지 않습니다.', '', 'info', '닫기')
+            return false;
+        }
+        $('#pwd_cnf_val').removeClass('border_validate_err');
+
+        if(name_val_checker ==='') {
+            $('#name_val').addClass('border_validate_err');
+            sweetalert('성명을 입력해주세요.', '', 'info', '닫기')
+            return false;
+        }
+        if(name_val_checker.search(/\s/) !== -1) {
+            $('#name_val').addClass('border_validate_err');
+            sweetalert('성명에 공백을 제거해 주세요.', '', 'info', '닫기')
+            return false;
+        }
+        $('#name_val').removeClass('border_validate_err');
+
+        if(org_val_checker ==='') {
+            $('#org_val').addClass('border_validate_err');
+            sweetalert('소속기관을 입력해주세요.', '', 'info', '닫기')
+            return false;
+        }
+        if(org_val_checker.search(/\s/) !== -1) {
+            $('#org_val').addClass('border_validate_err');
+            sweetalert('소속기관에 공백을 제거해 주세요.', '', 'info', '닫기')
+            return false;
+        }
+        $('#org_val').removeClass('border_validate_err');
+        if(major_val_checker ==='') {
+            $('#major_val').addClass('border_validate_err');
+            sweetalert('전공을 입력해주세요.', '', 'info', '닫기')
+            return false;
+        }
+        if(major_val_checker.search(/\s/) !== -1) {
+            $('#major_val').addClass('border_validate_err');
+            sweetalert('전공에 공백을 제거해 주세요.', '', 'info', '닫기')
+            return false;
+        }
+        $('#major_val').removeClass('border_validate_err');
+        if(phone1_val_checker ==='' || phone2_val_checker ===''
+        || phone3_val_checker ==='') {
+            $('#phone1_val').addClass('border_validate_err');
+            $('#phone2_val').addClass('border_validate_err');
+            $('#phone3_val').addClass('border_validate_err');
+            sweetalert('휴대전화 번호를 입력해주세요.', '', 'info', '닫기')
+            return false;
+        }
+        $('#phone1_val').removeClass('border_validate_err');
+        $('#phone2_val').removeClass('border_validate_err');
+        $('#phone3_val').removeClass('border_validate_err');
+        return true;
     }
 
     function sweetalert(title, contents, icon, confirmButtonText) {
@@ -67,6 +187,68 @@ class Register extends Component {
         }
     }
 
+    sweetalert = (title, contents, icon, confirmButtonText) => {
+        Swal.fire({
+            title: title,
+            text: contents,
+            icon: icon,
+            confirmButtonText: confirmButtonText
+        });
+    }
+
+    emailKeyPress = (e) => {
+        $('#email_val').removeClass('border_validate_err');
+    };
+
+    pwdKeyPress = (e) => {
+        $('#pwd_val').removeClass('border_validate_err');
+    };
+
+    pwdCnfKeyPress = (e) => {
+        $('#pwd_cnf_val').removeClass('border_validate_err');
+    };
+
+    nameKeyPress = (e) => {
+        $('#name_val').removeClass('border_validate_err');
+    };
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+    };
+    
+    mustNumber = (id) => {
+        var pattern1 = /[0-9]/;
+        var str = $('#'+id).val();
+        if(!pattern1.test(str.substr(str.length - 1, 1))){
+            $('#'+id).val(str.substr(0, str.length-1));
+        }
+    }
+
+    userDpliCheck = () => {
+        let email_val_checker = $('#email_val').val();
+        let email2_val_checker = $('#email2_val').val();
+        let email = email_val_checker + '@' + email2_val_checker;
+        console.log(email);
+        axios.post('/api/register?type=dplicheck',{
+            is_Email : email
+        }).then(res => {
+            console.log(res);
+            try {
+                const dupli_count = res.data.json[0].num;
+                if(dupli_count !== 0){
+                    $('#email_val').addClass('border_validate_err');
+                    $('#email2_val').addClass('border_validate_err');
+                    this.sweetalert('이미 존재하는 이메일입니다.', '', 'info', '닫기')
+                }else{
+                    $('#email_val').removeClass('border_validate_err');
+                    $('#email2_val').removeClass('border_validate_err');
+                }
+            } catch (error) {
+                this.sweetalert('작업중 오류가 발생하였습니다.', error, 'error', '닫기')
+            }
+        }).catch( res => { return false; } )
+    }
+
     render () {
         return (
             <div>
@@ -83,9 +265,9 @@ class Register extends Component {
                                                     <th>이메일</th>
                                                     <td>
                                                         <input id="email_val" type="text" name="is_Useremail1"
-                                                        placeholder="이메일을 입력해주세요." onKeyPress={() => {}}/>
+                                                        placeholder="이메일을 입력해주세요." onKeyPress={this.emailKeyPress}/>
                                                         <span className="e_goll">@</span>
-                                                        <select id="email2_val" name="is_Useremail2" className="select_ty1">
+                                                        <select id="email2_val" name="is_Useremail2" className="select_ty1" onChange={this.userDpliCheck}>
                                                                 <option value="">선택하세요</option>
                                                                 <option value='naver.com'>naver.com</option>
                                                                 <option value='hanmail.net'>hanmail.net</option>
@@ -101,21 +283,21 @@ class Register extends Component {
                                                     <th>비밀번호</th>
                                                     <td>
                                                         <input id="pwd_val" type="password" name="is_Password"
-                                                        placeholder="비밀번호를 입력해주세요." onKeyPress={() => {}} />
+                                                        placeholder="비밀번호를 입력해주세요." onKeyPress={this.pwdKeyPress} />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th>비밀번호 확인</th>
                                                     <td>
                                                         <input id="pwd_cnf_val" type="password" name="is_Password"
-                                                        placeholder="비밀번호를 다시 입력해주세요." onKeyPress={() => {}}/>
+                                                        placeholder="비밀번호를 다시 입력해주세요." onKeyPress={this.pwdCnfKeyPress}/>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th>성명</th>
                                                     <td>
                                                         <input id="name_val" type="text" name="is_Username"
-                                                        placeholder="성명을 입력해주세요." onKeyPress={() => {}}/>
+                                                        placeholder="성명을 입력해주세요." onKeyPress={this.nameKeyPress}/>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -146,10 +328,10 @@ class Register extends Component {
                                                         </select>
                                                         <span className="tel_dot">-</span>
                                                         <input id="phone2_val" name="is_Userphone2" max="9999"
-                                                        maxLength="4" onChange={() => {}}/>
+                                                        maxLength="4" onChange={(e) => this.mustNumber("phone2_val")}/>
                                                         <span className="tel_dot">-</span>
                                                         <input id="phone3_val" name="is_Userphone3" max="9999"
-                                                        maxLength="4" onChange={() => {}}/>
+                                                        maxLength="4" onChange={(e) => this.mustNumber("phone3_val")}/>
                                                     </td>
                                                 </tr>
                                             </tbody>

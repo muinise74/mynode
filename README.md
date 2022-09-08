@@ -25,6 +25,7 @@
       >> hook은 class형 Component 내에서 사용할 수 없음
       >> 함수형 Component 내에서 사용해야 함
       >> location.href 와 useNavigate의 차이는??
+    12th : 회원가입 유효성 검사 적용
 
   ### - 주의
     1. react에서 Component를 만들 때, Component 명을 Pascal Case로 작성하기

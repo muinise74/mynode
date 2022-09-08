@@ -30,4 +30,9 @@
             , CONCAT(#{is_Useremail1}, '@', #{is_Useremail2})
         )
     </insert>
+
+    <select id="userDpliCheck">
+        select count(*) as num from react.react_user where useremail = #{is_Email}
+    </select>
+
 </mapper>
