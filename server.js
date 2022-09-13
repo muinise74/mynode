@@ -32,7 +32,8 @@ app.use('/users03', usersRouter03);
 
 app.use('/api/Swtool',swtoolRouter);
 app.use('/api/upload',fileUploadRouter);
-app.use('/api/register',usersRouter)
+app.use('/api/register',usersRouter);
+app.use('/api/LoginForm',usersRouter);
 
 app.use(express.static("./uploads"));
 

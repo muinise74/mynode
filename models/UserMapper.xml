@@ -35,4 +35,8 @@
         select count(*) as num from react.react_user where useremail = #{is_Email}
     </select>
 
+    <select id='slctLoginCheck'>
+        select * from react.react_user where useremail = #{is_Email}
+    </select>
+
 </mapper>
