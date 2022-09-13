@@ -21,7 +21,42 @@ class SwDetailView extends Component {
     }
 
     componentDidMount () {
+        this.loginCheck();
         this.callSwToolInfoApi();
+    }
+
+    loginCheck = async() => {
+        axios.post('/api/LoginForm?type=SessionConfirm',{
+            token1: cookie.load('userid'),
+            token2: cookie.load('username')
+        }).then( res => {
+            let password = cookie.load('userpassword');
+            if (password !== undefined) {
+                axios.post('/api/LoginForm?type=SessionSignin',{
+                    is_Email:res.data.token1,
+                    is_Token: password
+                }).then (response => {
+                    if (response.data.json[0].useremail === undefined) {
+                        this.noPermission();
+                    }
+                }).catch (response => {this.noPermission()})
+            } else {
+                this.noPermission();
+            }
+        }).catch (res => {this.noPermission()});
+    }
+
+    noPermission = (e) => {
+        if (window.location.hash != 'nocookie') {
+            this.remove_cookie();
+            window.location.href ='/login/#nocookie'
+        }
+    }
+
+    remove_cookie = (e) => {
+        cookie.remove('userid', {path:'/'})
+        cookie.remove('username', {path:'/'})
+        cookie.remove('userpassword', {path:'/'})
     }
 
     callSwToolInfoApi = async () => {

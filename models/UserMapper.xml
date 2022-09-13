@@ -39,4 +39,8 @@
         select * from react.react_user where useremail = #{is_Email}
     </select>
 
+    <select id='selectSessionLoginCheck'>
+        select * from react.react_user where useremail = #{is_Email} and userpassword = #{is_Token}
+    </select>
+
 </mapper>

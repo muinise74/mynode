@@ -35,7 +35,7 @@ class LoginForm extends Component {
                         cookie.save('userpassword',upw,{path:'/',expires})
 
                         setTimeout(function() {
-                            window.location.href = '/SoftwareList';
+                            window.location.href = '/SwList';
                         }.bind(this),1000);
 
                     }).catch (error => {

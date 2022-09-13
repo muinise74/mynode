@@ -28,6 +28,7 @@
     12th : 회원가입 유효성 검사 적용
     13th : 로그인 (쿠키 유지 X)
     14th : 로그인 정보 쿠키 로 유지
+    15th : 로그인 후 쿠키 정보 사용하기
 
   ### - 주의
     1. react에서 Component를 만들 때, Component 명을 Pascal Case로 작성하기

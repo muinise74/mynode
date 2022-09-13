@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {Routes,Route}  from "react-router-dom";
+import cookie from 'react-cookies';
+import axios from 'axios';
 
 // css
 import '../css/new.css';
@@ -18,12 +20,19 @@ import SwDetailView from './SwToolsManage/SwDetailView';
 import Register from './User/Register';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    }
+  }
+
   render () {
     return (
       <div className="App">
         <HeaderAdmin/> 
         <Routes>
           <Route exact path='/'element = {<LoginForm/>} />
+          <Route path='/login'element = {<LoginForm/>} />
           <Route exact path='/ReactProxy' element = {<ReactProxy/>} />
           <Route exact path='/APIGetJson' element = {<APIGetJson/>} />
           <Route exact path='/APIPostJson' element = {<APIPostJson/>} />
