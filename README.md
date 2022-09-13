@@ -27,6 +27,7 @@
       >> location.href 와 useNavigate의 차이는??
     12th : 회원가입 유효성 검사 적용
     13th : 로그인 (쿠키 유지 X)
+    14th : 로그인 정보 쿠키 로 유지
 
   ### - 주의
     1. react에서 Component를 만들 때, Component 명을 Pascal Case로 작성하기

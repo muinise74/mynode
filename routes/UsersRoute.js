@@ -5,6 +5,9 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+let jwt = require("jsonwebtoken");
+let secretObj = require("../ignorefile/jwt");
+
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
@@ -64,6 +67,23 @@ router.post('/', (req, res, next) => {
         next('route');
       } catch (error) {
         console.log("Module > dbconnect error : "+ error);  
+      }
+    } else if (type == 'SessionState') {
+      let userid = req.body.is_Email;
+      let name = req.body.is_UserName;
+      console.log(userid,name);
+      try {
+        let token1 = jwt.sign({
+          email:userid
+        },secretObj.secret,{expiresIn : '60m'})
+
+        let token2 = jwt.sign({
+          username:name
+        },secretObj.secret,{expiresIn : '60m'})
+        res.send({"token1" : token1, "token2" : token2})
+      } catch (error) {
+        console.log(error);
+        res.send(error);
       }
     }
   });

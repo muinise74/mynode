@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from "axios";
 import Swal from 'sweetalert2';
 import $ from 'jquery';
+import cookie from 'react-cookies';
 
 class LoginForm extends Component {
     submitClick = (e) => {
@@ -22,10 +23,25 @@ class LoginForm extends Component {
                 
                 if(userid != null && userid != ''){
                     this.sweetalert('로그인 되었습니다.', '', 'info', '닫기')
+                    const expires = new Date();
+                    expires.setMinutes(expires.getMinutes() + 60);
 
-                    setTimeout(function() {
-                        window.location.href = '/SoftwareList';
-                    }.bind(this),1000);
+                    axios.post('/api/LoginForm?type=SessionState',{
+                        is_Email : userid,
+                        is_UserName : username
+                    }).then(res => {
+                        cookie.save('userid',res.data.token1,{path:'/',expires})
+                        cookie.save('username',res.data.token2,{path:'/',expires})
+                        cookie.save('userpassword',upw,{path:'/',expires})
+
+                        setTimeout(function() {
+                            window.location.href = '/SoftwareList';
+                        }.bind(this),1000);
+
+                    }).catch (error => {
+                        this.sweetalert('작업 중 에러가 발생했습니다.',error,'error','닫기')
+                    })
+
                 }else{
                     this.sweetalert('이메일과 비밀번호를 확인해주세요.', '', 'info', '닫기')
                 }
