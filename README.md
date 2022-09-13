@@ -30,10 +30,11 @@
     14th : 로그인 정보 쿠키 로 유지
     15th : 로그인 후 쿠키 정보 사용하기
     16th : 쿠키 유효시간 연장, 로그 아웃, 로그인 시에만 헤더 나타내기
-    17th : 아래 오류 해결
-    ![image](https://user-images.githubusercontent.com/95010730/189799221-84fd9d6f-3095-49cb-b22a-7646d3be11ef.png)
+    17th : 아래 경고 사항 해결
+      >> Warning: A future version of React will block javascript
       >> a 태그의 href 속성에 어떤 페이지에도 연결시키지 위해서 'javascript:'를 사용하지 않고 '#'을 활용
+      >> 경고 이미지 1번
 
   ### - 주의
     1. react에서 Component를 만들 때, Component 명을 Pascal Case로 작성하기
-    2. export 잊지 말기 
+    2. export 잊지 말기
