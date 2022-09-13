@@ -341,7 +341,7 @@ class SwDetailView extends Component {
                                     </table>
                                     <div className="btn_confirm mt20" style={{"marginBottom": "44px"}}>
                                         <Link to={'/SwList'} className="bt_ty bt_ty1 cancel_ty1">취소</Link>
-                                        <a href="javascript:" className="bt_ty bt_ty2 submit_ty1 modifyclass" 
+                                        <a href="#" className="bt_ty bt_ty2 submit_ty1 modifyclass" 
                                         onClick={(e) => this.submitClick('modify', e)}>수정</a>
                                     </div>
                                 </div>

@@ -297,7 +297,7 @@ class SoftwareView extends Component {
                                     </table>
                                     <div className="btn_confirm mt20" style={{"marginBottom": "44px"}}>
                                         <Link to={'/SoftwareList'} className="bt_ty bt_ty1 cancel_ty1">취소</Link>
-                                        <a href="javascript:" className="bt_ty bt_ty2 submit_ty1 saveclass" onClick={(e) => this.submitClick('save', e)}>저장</a>
+                                        <a href="#" className="bt_ty bt_ty2 submit_ty1 saveclass" onClick={(e) => this.submitClick('save', e)}>저장</a>
                                     </div>
                                 </div>
                             </article>
