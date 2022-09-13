@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import $ from 'jquery';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import cookie from 'react-cookies';
 
 class SoftwareView extends Component {
 

@@ -3,6 +3,7 @@ import {Link, useParams} from 'react-router-dom';
 import axios from "axios";
 import $ from 'jquery';
 import Swal from 'sweetalert2';
+import cookie from 'react-cookies';
 
 const GetSwtCode = () => {
     let { swtcode } = useParams();
