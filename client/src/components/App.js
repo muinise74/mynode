@@ -18,6 +18,7 @@ import SwList from './SwToolsManage/SwList';
 import SwView from './SwToolsManage/SwView';
 import SwDetailView from './SwToolsManage/SwDetailView';
 import Register from './User/Register';
+import PwChangeForm from './User/PwChangeForm';
 
 class App extends Component {
   constructor(props) {
@@ -40,6 +41,7 @@ class App extends Component {
           <Route exact path='/SwView' element = {<SwView/>} />
           <Route path='/SwDetailView/:swtcode' element = {<SwDetailView/>} />
           <Route exact path='/Register' element = {<Register/>} />
+          <Route path='/PwChangeForm/:email/:token' element = {<PwChangeForm/>} />
         </Routes>
         <Footer/>
       </div>
