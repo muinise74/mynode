@@ -3,14 +3,17 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./bin/www",
+    "client": "cd client && npm start",
+    "dev": "concurrently --kill-others-on-fail \"nodemon ./bin/www\" \"npm run-script client\""
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",
+    "concurrently": "^7.4.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
-    "express": "~4.16.1",
+    "express": "^4.16.4",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "jsonwebtoken": "^8.5.1",
@@ -21,6 +24,7 @@
     "mysql": "^2.18.1",
     "node-cron": "^3.0.2",
     "nodemailer": "^6.7.8",
-    "nodemon": "^2.0.19"
+    "nodemon": "^2.0.19",
+    "yarn": "^1.22.19"
   }
 }

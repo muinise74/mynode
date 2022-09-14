@@ -48,7 +48,9 @@
         - month (1-12)
         - day of week (0-7 or names)
         - * : any
-
+    22th : concurrently 적용
+      >> 'concurrently'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는 배치 파일이 아닙니다. 의 경우
+      >> npm i concurrently express --save
   ### - 주의
     1. react에서 Component를 만들 때, Component 명을 Pascal Case로 작성하기
     2. export 잊지 말기
