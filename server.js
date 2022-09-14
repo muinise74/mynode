@@ -14,6 +14,8 @@ let fileUploadRouter = require('./routes/UploadRoute');
 let usersRouter = require('./routes/UsersRoute');
 let mailRouter = require('./routes/MailRoute');
 
+require('./routes/BatchRoute');
+
 let app = express();
 
 // view engine setup

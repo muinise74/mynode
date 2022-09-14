@@ -38,6 +38,16 @@
       >> google 대신 naver 로 진행
     19th : 비밀번호 재설정 페이지 생성
     20th : 비밀번호 재설정
+    21th : node-cron을 통한 스케쥴러 생성
+      >> node-crom 표현식
+        - "sec min hour day month day of the week"
+        - sec (0-59) optional
+        - minute (0-59)
+        - hour (0-23)
+        - day of month (1-31)
+        - month (1-12)
+        - day of week (0-7 or names)
+        - * : any
 
   ### - 주의
     1. react에서 Component를 만들 때, Component 명을 Pascal Case로 작성하기
