@@ -59,29 +59,106 @@ class LoginForm extends Component {
           })
     }
 
+    pwdResetClick = () => {
+        $(".signin").hide()
+        $(".chgpw").fadeIn()
+        $('chgpw').css('display','table_cell')
+    }
+
+    pwdResetCancelClick = () => {
+        $(".chgpw").hide()
+        $(".signin").fadeIn()
+        $('signin').css('display','table_cell')
+    }
+
+    pwdResetConfirm = (e) => {
+        let reset_email = $('#reset_email_val').val();
+        let reset_name = $('#reset_name_val').val();
+
+        if (reset_email === '' || reset_name === '') {
+            this.sweetalert('이메일과 성명을 확인해 주세요','','info','닫기');
+        } else {
+            axios.post('/api/LoginForm/?type=pwreset',{
+                is_Email:reset_email,
+                is_Name:reset_name
+            }).then(res => {
+                let userpwd = res.data.json[0].userpassword
+                userpwd = userpwd.replace(/\//gi,"가");
+
+                if (userpwd != null && userpwd != '') {
+                    this.sendEmail(reset_email,'mynode 비밀번호 재설정 메일', userpwd)
+                } else {
+                    this.sweetalert('이메일과 성명을 확인해 주세요','','info','닫기');
+                }
+            }).catch(err => {
+                this.sweetalert('이메일과 성명을 확인해 주세요','','info','닫기');
+            })
+        }
+    }
+
+    sendEmail = (email,subject, password, e) => {
+        axios.post('/api/Mail',{
+            is_Email:email,
+            is_Subject:subject,
+            is_Password:password
+        }).then(res => {
+            if (res.data == "succ") {
+                this.sweetalert('입력하신 이메일로 비밀번호 \n 재설정메일 보내드렸습니다.','','info','닫기')
+            } else {
+                this.sweetalert('작업 중 에러가 발생했습니다.','','error','닫기');
+            }
+        }).catch(error => {
+            this.sweetalert('작업 중 에러가 발생했습니다.',error,'error','닫기');
+        })
+    }
+
     render () {
         return (
             <section className="main">
-                <div className="m_login">
-                <h3><span><img src={require("../img/main/log_img.png")} alt="" />
-                </span>LOGIN</h3>
-                <div className="log_box">
-                    <div className="in_ty1">
-                        <span><img src={require("../img/main/m_log_i3.png")} alt="" /></span>
-                        <input type="text" id="email_val" placeholder="이메일" />
+                <div className="m_login signin">
+                    <h3>
+                        <span><img src={require("../img/main/log_img.png")} alt="" /></span>LOGIN
+                    </h3>
+                    <div className="log_box">
+                        <div className="in_ty1">
+                            <span><img src={require("../img/main/m_log_i3.png")} alt="" /></span>
+                            <input type="text" id="email_val" placeholder="이메일" />
+                        </div>
+                        <div  className="in_ty1">
+                            <span className="ic_2">
+                                <img src={require("../img/main/m_log_i2.png")} alt="" />
+                            </span>
+                            <input type="password" id="pwd_val" placeholder="비밀번호" />
+                        </div>
+                        <ul className="af">
+                            <li><Link to={'/register'}>회원가입</Link></li>
+                            <li className="pwr_b" onClick={this.pwdResetClick}><a href="#n">비밀번호 재설정</a></li>
+                        </ul>
+                        <div className="s_bt" type="" onClick={(e) => this.submitClick(e)}>로그인</div>
                     </div>
-                    <div  className="in_ty1">
-                        <span className="ic_2">
-                            <img src={require("../img/main/m_log_i2.png")} alt="" />
-                        </span>
-                        <input type="password" id="pwd_val" placeholder="비밀번호" />
-                    </div>
-                    <ul className="af">
-                        <li><Link to={'/register'}>회원가입</Link></li>
-                        <li className="pwr_b"><a href="#n">비밀번호 재설정</a></li>
-                    </ul>
-                    <div className="s_bt" type="" onClick={(e) => this.submitClick(e)}>로그인</div>
                 </div>
+                <div className='m_login m_pw chgpw'>
+                    <h3 className='pw_ls'>비밀번호 재설정 <span className='compl1'>완료</span></h3>
+                    <div className='log_box'>
+                        <div className='pw_one'>
+                            <div className='in_ty1'>
+                                <span>
+                                    <img src={require("../img/main/m_log_i3.png")} alt = "" />
+                                </span>
+                                <input type = "text" id = "reset_email_val" name ="" placeholder='이메일'/>
+                            </div>
+                            <div className='in_ty1'>
+                                <span>
+                                    <img src={require("../img/main/m_log_i1.png")} alt = "" />
+                                </span>
+                                <input type = "text" id = "reset_name_val" name ="" placeholder='성명'/>
+                            </div>
+                            <div className='btn_confirm btn_confirm_m'>
+                                <div className = 'bt_ty bt_ty_m bt_ty1 cancel_ty1' onClick={this.pwdResetCancelClick}>취소</div>
+                                <a href = "#n" className='bt_ty bt_ty_m bt_ty2 submit_ty1' onClick={this.pwdResetConfirm}>확인</a> 
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
         );

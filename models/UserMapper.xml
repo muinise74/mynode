@@ -43,4 +43,7 @@
         select * from react.react_user where useremail = #{is_Email} and userpassword = #{is_Token}
     </select>
 
+    <select id="checkForPwReset">
+        select userpassword from react.react_user where useremail = #{is_Email} and username = #{is_Name}
+    </select>
 </mapper>

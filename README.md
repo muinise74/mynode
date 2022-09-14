@@ -34,6 +34,8 @@
       >> Warning: A future version of React will block javascript
       >> a 태그의 href 속성에 어떤 페이지에도 연결시키지 위해서 'javascript:'를 사용하지 않고 '#'을 활용
       >> 경고 이미지 1번
+    18th : 비밀번호 재설정 메일 발송
+      >> google 대신 naver 로 진행
 
   ### - 주의
     1. react에서 Component를 만들 때, Component 명을 Pascal Case로 작성하기

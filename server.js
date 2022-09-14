@@ -12,6 +12,7 @@ let usersRouter03 = require('./routes/users03');
 let swtoolRouter = require('./routes/SwtoolRoute');
 let fileUploadRouter = require('./routes/UploadRoute');
 let usersRouter = require('./routes/UsersRoute');
+let mailRouter = require('./routes/MailRoute');
 
 let app = express();
 
@@ -34,6 +35,7 @@ app.use('/api/Swtool',swtoolRouter);
 app.use('/api/upload',fileUploadRouter);
 app.use('/api/register',usersRouter);
 app.use('/api/LoginForm',usersRouter);
+app.use('/api/Mail', mailRouter);
 
 app.use(express.static("./uploads"));
 
