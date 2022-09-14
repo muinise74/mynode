@@ -37,6 +37,7 @@
     18th : 비밀번호 재설정 메일 발송
       >> google 대신 naver 로 진행
     19th : 비밀번호 재설정 페이지 생성
+    20th : 비밀번호 재설정
 
   ### - 주의
     1. react에서 Component를 만들 때, Component 명을 Pascal Case로 작성하기

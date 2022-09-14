@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link,useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import $ from 'jquery';
 import axios from 'axios';
@@ -15,64 +15,61 @@ const GetParams = () => {
     )
 }
 
-class PwChangeForm extends Component {
-    constructor (props) {
-    super(props);
-        this.state = {
+const PwChangeButton = () => {
+
+    const navigate = useNavigate();
+
+    function fnValidate(e) {
+        var pattern1 = /[0-9]/;
+        var pattern2 = /[a-zA-Z]/;
+        var pattern3 = /[~!@#$%^&*()_+|<>?:{}]/;
+
+        let pwd_val_checker = $('#pwd_val').val();
+        let pwd_cnf_val_checker = $('#pwd_cnf_val').val();
+
+        if(pwd_val_checker ==='') {
+            $('#pwd_val').addClass('border_validate_err');
+            sweetalert('비밀번호를 입력해주세요.', '', 'info', '닫기')
+            return false;
         }
+        if(pwd_val_checker !='') {
+            var str = pwd_val_checker;
+            if(str.search(/\s/) != -1) {
+                $('#pwd_val').addClass('border_validate_err');
+                sweetalert('비밀번호 공백을 제거해 주세요.', '', 'info', '닫기')
+                return false;
+            } 
+            if(!pattern1.test(str) || !pattern2.test(str) || !pattern3.test(str)
+            || str.length < 8 || str.length > 16) {
+                $('#pwd_val').addClass('border_validate_err');
+                sweetalert('8~16자 영문 대 소문자, 숫자\n 특수문자를 사용하세요.', '', 'info', '닫기')
+                return false; 
+            } 
+        }
+        $('#pwd_val').removeClass('border_validate_err');
+
+        if(pwd_cnf_val_checker ==='') {
+            $('#pwd_cnf_val').addClass('border_validate_err');
+            sweetalert('비밀번호 확인을 입력해주세요.', '', 'info', '닫기')
+            return false;
+        }
+        if(pwd_val_checker != pwd_cnf_val_checker) {
+            $('#pwd_val').addClass('border_validate_err');
+            $('#pwd_cnf_val').addClass('border_validate_err');
+            sweetalert('비밀번호가 일치하지 않습니다.', '', 'info', '닫기')
+            return false;
+        }
+        $('#pwd_cnf_val').removeClass('border_validate_err');
+        return true;
     }
 
-    submitClick = async (e) => {
-        this.pwd_val_checker = $('#pwd_val').val();
-        this.pwd_cnf_val_checker = $('#pwd_cnf_val').val();
-
-        this.fnValidate = (e) => {
-            var pattern1 = /[0-9]/;
-            var pattern2 = /[a-zA-Z]/;
-            var pattern3 = /[~!@#$%^&*()_+|<>?:{}]/;
-
-            if(this.pwd_val_checker ==='') {
-                $('#pwd_val').addClass('border_validate_err');
-                this.sweetalert('비밀번호를 입력해주세요.', '', 'info', '닫기')
-                return false;
-            }
-            if(this.pwd_val_checker !='') {
-                var str = this.pwd_val_checker;
-                if(str.search(/\s/) != -1) {
-                    $('#pwd_val').addClass('border_validate_err');
-                    this.sweetalert('비밀번호 공백을 제거해 주세요.', '', 'info', '닫기')
-                    return false;
-                } 
-                if(!pattern1.test(str) || !pattern2.test(str) || !pattern3.test(str)
-                || str.length < 8 || str.length > 16) {
-                    $('#pwd_val').addClass('border_validate_err');
-                    this.sweetalert('8~16자 영문 대 소문자, 숫자\n 특수문자를 사용하세요.', '', 'info', '닫기')
-                    return false; 
-                } 
-            }
-            $('#pwd_val').removeClass('border_validate_err');
-
-            if(this.pwd_cnf_val_checker ==='') {
-                $('#pwd_cnf_val').addClass('border_validate_err');
-                this.sweetalert('비밀번호 확인을 입력해주세요.', '', 'info', '닫기')
-                return false;
-            }
-            if(this.pwd_val_checker != this.pwd_cnf_val_checker) {
-                $('#pwd_val').addClass('border_validate_err');
-                $('#pwd_cnf_val').addClass('border_validate_err');
-                this.sweetalert('비밀번호가 일치하지 않습니다.', '', 'info', '닫기')
-                return false;
-            }
-            $('#pwd_cnf_val').removeClass('border_validate_err');
-            return true;
-        }
-
-        if(this.fnValidate()){
+    async function submitClick(e) {
+        if(fnValidate()){
             var jsonstr = $("form[name='frm']").serialize();
             jsonstr = decodeURIComponent(jsonstr);
             var Json_form = JSON.stringify(jsonstr).replace(/\"/gi,'')
             Json_form = "{\"" +Json_form.replace(/\&/g,'\",\"').replace(/=/gi,'\":"')+"\"}";
-            
+            // console.log(Json_form)
             try {
                 const response = await fetch('/api/register?type=pwdmodify', {
                     method: 'POST',
@@ -83,21 +80,23 @@ class PwChangeForm extends Component {
                 });
                 const body = await response.text();
                 if(body == "succ"){
-                    this.sweetalertSucc('비밀번호 수정이 완료되었습니다.', false)
-                    setTimeout(function() {
-                        this.props.history.push('/');
-                        }.bind(this),1500
-                    );
+                    Swal.fire({
+                        title : '비밀번호 수정이 완료됐습니다.',
+                        icon : 'success',
+                        cancelButtonText:'확인'
+                    }).then(() => {
+                        navigate('/');
+                    })
                 }else{
-                    this.sweetalert('작업 중 오류가 발생하였습니다.', '', 'error', '닫기')
+                    sweetalert('작업 중 오류가 발생하였습니다.', '', 'error', '닫기')
                 }  
             } catch (error) {
-                this.sweetalert('작업 중 오류가 발생하였습니다.', error, 'error', '닫기')
+                sweetalert('작업 중 오류가 발생하였습니다.', error, 'error', '닫기')
             }
         }
     };
 
-    sweetalert = (title, contents, icon, confirmButtonText) => {
+    function sweetalert(title, contents, icon, confirmButtonText) {
         Swal.fire({
             title: title,
             text: contents,
@@ -106,14 +105,16 @@ class PwChangeForm extends Component {
           })
     }
 
-    sweetalertSucc = (title, showConfirmButton) => {
-        Swal.fire({
-            position: 'bottom-end',
-            icon: 'success',
-            title: title,
-            showConfirmButton: showConfirmButton,
-            timer: 1000
-        })
+    return (
+        <a href="#n" className="bt_ty bt_ty_m bt_ty2 submit_ty1" onClick={(e) => submitClick(e)}>재설정</a>
+    )
+}
+
+class PwChangeForm extends Component {
+    constructor (props) {
+    super(props);
+        this.state = {
+        }
     }
 
     componentDidMount() {
@@ -158,8 +159,7 @@ class PwChangeForm extends Component {
                                     <Link to={'/'}>
                                         <div className="bt_ty bt_ty_m bt_ty1 cancel_ty1">취소</div>
                                     </Link>
-                                    <a href="#n" className="bt_ty bt_ty_m bt_ty2 submit_ty1" 
-                                    onClick={(e) => this.submitClick(e)}>재설정</a>
+                                    <PwChangeButton/>
                                 </div>
                             </div>
                         </form>

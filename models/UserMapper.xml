@@ -50,4 +50,8 @@
     <select id="slctEmailTokenCheck">
         select * from react.react_user where useremail = #{is_Email} and userpassword like concat('%',#{is_Token},'%')
     </select>
+
+    <update id="updateUserPwd">
+        update react.react_user set userpassword = #{is_Password} where useremail = #{is_Useremail}
+    </update>
 </mapper>
